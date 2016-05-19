@@ -10,7 +10,7 @@ var config = {
   sassLoaders: [
     'css-loader',
     'postcss-loader',
-    'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, 'public', 'build');
+    'sass-loader?indentedSyntax=sass&includePaths[]=' + path.resolve(__dirname, 'public', 'build')
   ],
   // We change to normal source mapping
   devtool: 'source-map',
