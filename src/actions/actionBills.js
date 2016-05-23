@@ -66,8 +66,16 @@ export function getHouseBillData(testing) {
 
   return dispatch => {
     return fetch(house)
-      .then(response => response.json())
-      .then(json => dispatch(receiveHouseBillData(json))) 
+      .then(response => {
+        console.log('response from actionBills', response);
+        response.json()
+      })
+      .then(json => {
+        console.log('json from actionBills', json);
+        if (json) { 
+          dispatch(receiveHouseBillData(json))
+        }
+      }) 
   }
 }
 
