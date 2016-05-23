@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { userRegister } from '../../actions/actionLogin'
+import { getRepresentatives } from '../../actions/actionRepresentatives';
 import RegisterForm from '../../components/RegisterForm/RegisterForm'
 import Zipcode from '../../components/Zipcode/Zipcode'
 

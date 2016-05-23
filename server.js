@@ -10,6 +10,8 @@ var router = require('./router');
 var publicPath = path.resolve(__dirname, 'public');
 
 var config = require('./config');
+var asyncLoop = require('./server/asyncLoop').asyncLoop;
+
 var cleanData;
 
 
@@ -70,38 +72,6 @@ JSONdata = JSON.parse(JSONdata.toString());
 ////////////////////////////////
 
 
-////////// Asynchronous Loop... A beautiful thing.
-function asyncLoop(iterations, func, callback) {
-var index = 0;
-var done = false;
-var loop = {
-    next: function() {
-        if (done) {
-            return;
-        }
-
-        if (index < iterations) {
-            index++;
-            func(loop);
-
-        } else {
-            done = true;
-            callback();
-        }
-    },
-
-    iteration: function() {
-        return index - 1;
-    },
-
-    break: function() {
-        done = true;
-        callback();
-    }
-};
-loop.next();
-return loop;
-}
 
 /*
 * Takes dates formatted as YYYY/MM/DD
@@ -816,7 +786,7 @@ function collectBills(uri, model) {
     var i = 0;
     var iterations = houseBill.objects.length;
     var skippedBills = [];
-
+    
     asyncLoop(iterations, function(loop) {
       console.log('loop.iteration()', loop.iteration());
       const bill = new model();

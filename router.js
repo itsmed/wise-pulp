@@ -29,6 +29,8 @@ var LDR_PAC_Sponsor = require('./data/db/LDR_PAC_Sponsor.model');
 var Administrative_Fine = require('./data/db/Administrative_Fine.model');
 var UserOpinion = require('./data/db/UserOpinion.model');
 
+var asyncLoop = require('./server/asyncLoop').asyncLoop;
+
 /////////////////////////////////////////// API helper functions
 
 function validateNumber(aString) {
@@ -304,38 +306,6 @@ module.exports = function(app) {
 
 };
 
-
-function asyncLoop(iterations, func, callback) {
-var index = 0;
-var done = false;
-var loop = {
-    next: function() {
-        if (done) {
-            return;
-        }
-
-        if (index < iterations) {
-            index++;
-            func(loop);
-
-        } else {
-            done = true;
-            callback();
-        }
-    },
-
-    iteration: function() {
-        return index - 1;
-    },
-
-    break: function() {
-        done = true;
-        callback();
-    }
-};
-loop.next();
-return loop;
-}
 
 // cronjob runs every day at 9am Pacific Time
 
